@@ -8,5 +8,6 @@ cd $local_mirror_dir
 rsync -av --delete root@192.168.21.223:/docker/vaultwarden/data .
 scp root@192.168.21.223:/docker/vaultwarden/docker-compose.yml .
 sed -i '/^networks:/,/^[^[:space:]]/ s/^/#/' docker-compose.yml
+sed -i 's/"33:33"/"1000:1000"/' docker-compose.yml
 
 docker compose pull
