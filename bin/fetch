@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+local_mirror_dir="$script_dir/../"
+cd $local_mirror_dir
+
+rsync -av --delete root@192.168.21.223:/docker/vaultwarden/data .
+scp root@192.168.21.223:/docker/vaultwarden/docker-compose.yml .
+sed -i '/^networks:/,/^[^[:space:]]/ s/^/#/' docker-compose.yml
+
+docker compose pull
